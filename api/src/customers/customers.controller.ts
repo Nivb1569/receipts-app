@@ -28,7 +28,7 @@ export class CustomersController {
         return this.customersService.update(id, dto)
     }   
 
-    @Delete(':id')
+    @Delete(':id') // DELETE /customers/:id
     remove(@Param('id', ParseIntPipe) id: number) {
         return this.customersService.remove(id)
     }

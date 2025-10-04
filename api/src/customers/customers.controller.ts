@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Param, Body, Patch, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, Patch, Delete, Query, ParseIntPipe } from '@nestjs/common';
 import { CreateCustomerDto } from './dto/create-customer.dto'
 import { CustomersService } from './customers.service';
 import { ListCustomersDto } from './dto/list-customers.dto'
 import { GetCustomerParamsDto } from './dto/get-customer.params';
+import { UpdateCustomerDto } from './dto/update-customer.dto'
 
 @Controller('customers')
 export class CustomersController {
@@ -23,12 +24,12 @@ export class CustomersController {
     }
 
     @Patch(':id') // PATCH /customers/:id
-    update(@Param('id') id : string, @Body() userUpdate: object) {
-        return { id, ...userUpdate }
-    }
+    update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateCustomerDto) {
+        return this.customersService.update(id, dto)
+    }   
 
-    @Delete(':id') // DELETE /customers/:id
-    delete(@Param('id') id : string) {
-        return { id }
+    @Delete(':id')
+    remove(@Param('id', ParseIntPipe) id: number) {
+        return this.customersService.remove(id)
     }
 }

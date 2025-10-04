@@ -60,5 +60,4 @@ model Bill {
   customerProduct CustomerProduct @relation(fields: [customerId, productId], references: [customerId, productId])
   @@index([customerId, date])
   @@index([productId, date])
-
 }
